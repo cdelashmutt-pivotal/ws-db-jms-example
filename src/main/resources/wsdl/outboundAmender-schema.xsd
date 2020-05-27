@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://amend.example.com/" xmlns:tns="http://amend.example.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="AmendBatchFareAdj" type="tns:amendBatchFareAdj"/>
+  <xs:element name="AmendBatchFareAdjResponse" type="tns:amendBatchFareAdjResponse"/>
+  
+  <xs:element name="BatchFareAdjInfo" type="tns:batchFareAdjInfo"/>
+  
+  <xs:complexType name="amendBatchFareAdj">
+    <xs:sequence>
+      <xs:element name="AwayAgencyIAGCode" type="tns:awayAgencyIAGCodeType"/>
+      <xs:element name="Reason" type="xs:string"/>
+      <xs:element name="AmendTime" type="xs:dateTime"/>
+      <xs:element name="BatchFareAdjInfo" type="tns:batchFareAdjInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchFareAdjInfo">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:long"/>
+      <xs:element name="FullFareRevenue" type="tns:fareRevenueType"/>
+      <xs:element name="EtcFareRevenue" type="tns:fareRevenueType"/>
+      <xs:element name="IndicatedRevenue" type="tns:fareRevenueType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="amendBatchFareAdjResponse">
+    <xs:sequence>
+    	<xs:element name="amendBatchFareAdjRes" type="tns:amendResponseType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="amendResponseType">
+    <xs:sequence>
+    	<xs:element name="responseId" type="xs:long"/>
+    	<xs:element name="responseTime" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="awayAgencyIAGCodeType">
+    <xs:restriction base="xs:string">
+    	<xs:minLength value="1"/>
+        <xs:maxLength value="3"/>
+ 		<xs:pattern value="[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="fareRevenueType">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2"/>
+      <xs:totalDigits value="5"/>
+      <xs:maxInclusive value="500"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:element name="UnrecoverableFault" type="tns:UnrecoverableFault"/>
+  <xs:complexType name="UnrecoverableFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="referenceId" type="xs:long"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:element name="RecoverableFault" type="tns:RecoverableFault"/>
+  <xs:complexType name="RecoverableFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="referenceId" type="xs:long"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

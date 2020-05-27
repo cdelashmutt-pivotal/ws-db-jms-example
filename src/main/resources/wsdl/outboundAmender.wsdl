@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions name="Amender" targetNamespace="http://amend.example.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://amend.example.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ 
+  <wsdl:types>
+	<xsd:schema attributeFormDefault="unqualified">
+	  <xsd:import namespace="http://amend.example.com/" schemaLocation="outboundAmender-schema.xsd"/>
+	</xsd:schema>
+  </wsdl:types>
+ 
+  <wsdl:message name="amendBatchFareAdjResponse">
+    <wsdl:part element="tns:AmendBatchFareAdjResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="amendBatchFareAdj">
+    <wsdl:part element="tns:AmendBatchFareAdj" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+    
+  <wsdl:message name="UnrecoverableFault">
+    <wsdl:part element="tns:UnrecoverableFault" name="UnrecoverableFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RecoverableFault">
+    <wsdl:part element="tns:RecoverableFault" name="RecoverableFault">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:portType name="procAmend">
+    <wsdl:operation name="amendBatchFareAdj">
+      <wsdl:input message="tns:amendBatchFareAdj" name="amendBatchFareAdj">
+    </wsdl:input>
+      <wsdl:output message="tns:amendBatchFareAdjResponse" name="amendBatchFareAdjResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UnrecoverableFault" name="UnrecoverableFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:RecoverableFault" name="RecoverableFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+ 
+  <wsdl:binding name="AmenderSoapBinding" type="tns:procAmend">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+   
+    <wsdl:operation name="amendBatchFareAdj">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="amendBatchFareAdj">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="amendBatchFareAdjResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableFault">
+        <soap:fault name="UnrecoverableFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="RecoverableFault">
+        <soap:fault name="RecoverableFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="Amender">
+    <wsdl:port binding="tns:AmenderSoapBinding" name="procAmendPort">
+      <soap:address location="http://localhost:9087/Receiver/Amender"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

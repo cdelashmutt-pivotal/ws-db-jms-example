@@ -1,0 +1,24 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:as="http://amend.outbound.ufm.sodh.fte.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gs:getCountryRequest>
+         <gs:name>Spain</gs:name>
+      </gs:getCountryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+<xs:complexType name="amendBatchFareAdj">
+<xs:sequence>
+<xs:element name="AwayAgencyIAGCode" type="tns:awayAgencyIAGCodeType"/>
+<xs:element name="Reason" type="xs:string"/>
+<xs:element name="AmendTime" type="xs:dateTime"/>
+<xs:element name="BatchFareAdjInfo" type="tns:batchFareAdjInfo"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="batchFareAdjInfo">
+<xs:sequence>
+<xs:element name="UFMID" type="xs:long"/>
+<xs:element name="FullFareRevenue" type="tns:fareRevenueType"/>
+<xs:element name="EtcFareRevenue" type="tns:fareRevenueType"/>
+<xs:element name="IndicatedRevenue" type="tns:fareRevenueType"/>
+</xs:sequence>
